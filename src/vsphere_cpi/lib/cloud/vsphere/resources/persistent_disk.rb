@@ -41,7 +41,7 @@ module VSphereCloud
       def create_persistent_backing(existing_disk)
         parent_backing_info = VimSdk::Vim::Vm::Device::VirtualDisk::FlatVer2BackingInfo.new
         parent_backing_info.datastore = @datastore.mob
-        parent_backing_info.file_name = '[vsanDatastore-Cluster-01] acfe8058-d8f9-c82d-cb6f-842b2b08feba/disk-479262c2-d076-4cd1-9049-683276f70044.vmdk'
+        parent_backing_info.file_name = existing_disk.path
 
         backing_info = VimSdk::Vim::Vm::Device::VirtualDisk::FlatVer2BackingInfo.new
         backing_info.datastore = @datastore.mob

@@ -44,10 +44,12 @@ context 'given cpis that are configured to use VSAN datastores', vsan_datastore:
     VSphereCloud::Cloud.new(options)
   end
 
-  it 'DETE_ME' do
+  # TODO(cunnie): delete this stanza; its purpose is to speed testing by keeping stemcells
+  # around & not uploading them each time.
+  it 'DELETE_ME' do
     begin
-      # vsan_stemcell_id = upload_stemcell(vsan_cpi)
-      vsan_stemcell_id = 'sc-ae5bd22e-70ba-442f-9bfe-85399b8acd69'
+      vsan_stemcell_id = upload_stemcell(vsan_cpi)
+      # vsan_stemcell_id = 'EXISTING_STEMCELL_ID'
 
       @vm_id = vsan_cpi.create_vm(
         'agent-007',

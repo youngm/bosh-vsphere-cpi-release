@@ -271,7 +271,11 @@ module VimSdk
 
     require "ruby_vim_sdk/missing_types"
     require "ruby_vim_sdk/core_types"
+    require "ruby_vim_sdk/query_types"
     require "ruby_vim_sdk/server_objects"
+    require "ruby_vim_sdk/pbm_objects"
+    require "ruby_vim_sdk/eam_objects"
+    require "ruby_vim_sdk/sms_objects"
 
     load_types
   end

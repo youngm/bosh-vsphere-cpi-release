@@ -85,7 +85,8 @@ module LifecycleProperties
       'default_disk_type' => 'preallocated',
       'datacenters' => [datacenter_config],
       'http_logging' => true,
-      'request_id' => nil,
+      'soap_log' => STDERR,
+      'request_id' => nil
     }, overrides)
 
     opts = {

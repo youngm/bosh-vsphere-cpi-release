@@ -7,6 +7,7 @@ groups:
       - pyvmomi_to_ruby-tests
       - build-candidate
       - lifecycle-6.0
+      - lifecycle-6.0-parallel
       - lifecycle-6.0-vsan
       - lifecycle-6.5
       - bats
@@ -120,10 +121,10 @@ jobs:
     serial: true
     plan:
       - aggregate:
-        - {trigger: true,  passed: [build-candidate], get: bosh-cpi-artifacts, tags: ["vsphere-v6.0"]} # used for job chaining only not for tasks
-        - {trigger: false, passed: [build-candidate], get: bosh-cpi-src, tags: ["vsphere-v6.0"]}
-        - {trigger: false,                            get: stemcell, resource: vsphere-ubuntu-stemcell, tags: ["vsphere-v6.0"]}
-        - {trigger: true,                             get: 2h, tags: [vsphere-v6.0]}
+        - {trigger: true,  get: bosh-cpi-artifacts, tags: ["vsphere-v6.0"]} # used for job chaining only not for tasks
+        - {trigger: false, get: bosh-cpi-src, tags: ["vsphere-v6.0"], resource: bosh-cpi-src-parallel-rspec}
+        - {trigger: false, get: stemcell, resource: vsphere-ubuntu-stemcell, tags: ["vsphere-v6.0"]}
+        - {trigger: true,  get: 2h, tags: [vsphere-v6.0]}
       - task: test
         tags: ["vsphere-v6.0"]
         file: bosh-cpi-src/ci/tasks/run-lifecycle.yml
@@ -336,6 +337,13 @@ jobs:
       params: {file: release-version-semver/number}
 
 resources:
+  - name: bosh-cpi-src-parallel-rspec
+    type: git
+    source:
+      uri:         git@github.com:cloudfoundry-incubator/bosh-vsphere-cpi-release.git
+      branch:      parallel-rspec
+      private_key: {{github_deployment_key__bosh-vsphere-cpi-release}}
+
   - name: bosh-cpi-artifacts
     type: s3
     source:

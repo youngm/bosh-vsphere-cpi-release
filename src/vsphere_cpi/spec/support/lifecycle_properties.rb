@@ -85,7 +85,6 @@ module LifecycleProperties
       'default_disk_type' => 'preallocated',
       'datacenters' => [datacenter_config],
       'http_logging' => true,
-      'soap_log' => STDERR,
       'request_id' => nil
     }, overrides)
 
@@ -95,6 +94,7 @@ module LifecycleProperties
       },
       'vcenters' => [vcenter_options]
     }
+    opts['soap_log'] = STDOUT
     if overrides['soap_log']
       opts['soap_log'] = overrides['soap_log']
     end
